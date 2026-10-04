@@ -4,6 +4,8 @@
 
 当前主模型保留 I 分支 Layer3 的普通卷积，在 Layer4、Layer5 中使用 FFC；FFC 的全局单元使用傅里叶变换，局部单元使用 Haar DWT、小波子带处理和逆变换。训练支持 CUDA 单卡／多卡和断点续训，评估支持 GPU 和 CPU。
 
+**权重下载：** [GitHub Releases](https://github.com/Hiaodo/PIDNet-FFC-DWT/releases) · [下载项目权重 best_7820.pt（v1.0.0）](https://github.com/Hiaodo/PIDNet-FFC-DWT/releases/download/v1.0.0/best_7820.pt)。下载后的保存位置见 [第 4.2 节](#42-项目分割权重)。
+
 ## 目录
 
 - [1. 项目结构](#1-项目结构)
@@ -13,9 +15,7 @@
 - [5. 训练](#5-训练)
 - [6. 评估](#6-评估)
 - [7. 图片推理与模型统计](#7-图片推理与模型统计)
-- [8. 常见问题](#8-常见问题)
-- [9. GitHub 发布规范](#9-github-发布规范)
-- [10. 参考文献与致谢](#10-参考文献与致谢)
+- [8. 参考文献](#8-参考文献)
 
 ## 1. 项目结构
 
@@ -182,11 +182,20 @@ MODEL.PRETRAINED '""'
 
 ### 4.2 项目分割权重
 
-本地整理目录中的 `output/best_7820.pt` 是项目分割权重。第 6、7 节的命令以它为例；自行训练后，可将路径替换为对应输出目录下的 `best.pt`。
+项目权重通过 [GitHub Releases](https://github.com/Hiaodo/PIDNet-FFC-DWT/releases) 单独发布，当前版本为 [v1.0.0](https://github.com/Hiaodo/PIDNet-FFC-DWT/releases/tag/v1.0.0)。通过 `git clone` 或下载源码压缩包获取代码后，还需下载对应的权重附件。
 
-GitHub 若未包含该文件，需要先取得项目权重或完成训练。发布权重时应提供实际下载链接、模型结构、数据划分、评估设置和文件 SHA-256。
+1. 在项目根目录下创建 `output/` 文件夹，将下载的文件放入该目录，保留文件名 `best_7820.pt`。
+2. 完成后，按照第 6 节评估，或按照第 7 节进行图片推理；命令中的权重路径为 `output/best_7820.pt`。
 
-`pretrained_models/cityscapes/PIDNet_S_Cityscapes_val.pt`、`PIDNet_S_Cityscapes_test.pt` 属于普通 PIDNet 权重。它们与当前 FFC+DWT 结构不同，不应当作当前模型的完整分割权重使用。
+```text
+PIDNet-FFC-DWT/
+├── README.md
+├── tools/
+└── output/
+    └── best_7820.pt
+```
+
+同一 Release 还提供普通 PIDNet 的 [PIDNet_S_Cityscapes_val.pt](https://github.com/Hiaodo/PIDNet-FFC-DWT/releases/download/v1.0.0/PIDNet_S_Cityscapes_val.pt) 和 [PIDNet_S_Cityscapes_test.pt](https://github.com/Hiaodo/PIDNet-FFC-DWT/releases/download/v1.0.0/PIDNet_S_Cityscapes_test.pt)，可保存到 `pretrained_models/cityscapes/`。它们与当前 FFC+DWT 结构不同，不应当作当前模型的完整分割权重使用。训练所需的 ImageNet 初始化权重请按第 4.1 节另行准备。
 
 ## 5. 训练
 

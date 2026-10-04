@@ -1,0 +1,27 @@
+# Python 与本地环境
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.env
+.env.*
+.idea/
+.vscode/
+
+# 保留 data/list/，忽略数据集
+/data/cityscapes/
+
+# 训练输出、事件文件与可视化结果
+/output/
+/log/
+/samples/outputs_ffc45/
+
+# 权重通过 Release 或 Git LFS 管理
+*.pt
+*.pth
+*.pth.tar
+*.ckpt
+
+# 系统临时文件
+.DS_Store
+Thumbs.db
